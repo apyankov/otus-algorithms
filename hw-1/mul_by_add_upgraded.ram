@@ -3,16 +3,18 @@
 read 1 ; множитель 1
 read 2 ; множитель 2
 
+; оптимизация: второй множитель должен быть меньше первого
 load 1
 sub 2
-jgtz init ; skip
-do_change:
+jgtz init
+do_change: ; перестановка множителей
 load 1
 store 3
 load 2
 store 1
 load 3
 store 2
+; основной алгоритм
 init:
 load =0
 store 3 ; result
