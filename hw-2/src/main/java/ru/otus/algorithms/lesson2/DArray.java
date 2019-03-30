@@ -1,6 +1,9 @@
 package ru.otus.algorithms.lesson2;
 
 /*********************************************************
+ _Array impl, в которой:
+    - используем один массив, который при расширении - заменяем на массив большего размера
+
  Пример использования:
 
  DArray<Integer> a = new DArray<Integer>();
@@ -13,32 +16,50 @@ package ru.otus.algorithms.lesson2;
  System.out.println(a.get(i));
  *********************************************************/
 
-class DArray<T> {
+class DArray<T> implements _Array<T> {
 
-    private Object[] _arr;
+    private T[] _arr;
     private int growBlockSize;
+
 
     DArray() {
         this(0, 1);
     }
 
+    @SuppressWarnings("unchecked")
     DArray(int initialSize, int growBlockSize) {
         assert initialSize >= 0;
         assert growBlockSize > 0;
 
         if (initialSize > 0) {
-            this._arr = new Object[initialSize];
+            this._arr = (T[]) new Object[initialSize];
         }
         this.growBlockSize = growBlockSize;
     }
 
-    @SuppressWarnings("unchecked")
-    T get(int index) {
-        return (T) _arr[index];
+
+    public T get(int index) {
+        return _arr[index];
     }
 
+    public void add(int index, T element) {
+        if (_arr == null || _arr.length <= index)
+            relocate(index + growBlockSize, index);
+        _arr[index] = element;
+    }
+
+    public void set(int index, T element) {
+        _arr[index] = element;
+    }
+
+    public int size() {
+        return _arr.length;
+    }
+
+
+    @SuppressWarnings("unchecked")
     private void relocate(int newsize, int index) {
-        Object[] tmp = new Object[newsize];
+        T[] tmp = (T[]) new Object[newsize];
 
         if (_arr != null)
             for (int i = 0; i < _arr.length; i++)
@@ -47,19 +68,5 @@ class DArray<T> {
                 else
                     tmp[i + 1] = _arr[i];
         _arr = tmp;
-    }
-
-    void add(int index, T element) {
-        if (_arr == null || _arr.length <= index)
-            relocate(index + growBlockSize, index);
-        _arr[index] = (Object) element;
-    }
-
-    void set(int index, T element) {
-        _arr[index] = (Object) element;
-    }
-
-    int size() {
-        return _arr.length;
     }
 }
