@@ -12,7 +12,7 @@ class PQueueTest {
     private static final String SAMPLE_VALUE_2 = "sample string 2";
     private static final String SAMPLE_VALUE_3 = "sample string 3";
 
-    private PQueue<String> queue = new PQueue<>();
+    private PQueue<String> queue = new PQueueImpl<>();
 
 
     @Test
