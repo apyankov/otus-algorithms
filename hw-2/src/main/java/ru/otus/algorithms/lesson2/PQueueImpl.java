@@ -5,37 +5,52 @@ package ru.otus.algorithms.lesson2;
  */
 public class PQueueImpl<T> implements PQueue<T> {
 
-    private OList<T>[] _queue; // индекс в массиве - приоритет, элемент массива - список элементов с этим приоритетом
+    // индекс в массиве - приоритет,
+    // элемент массива - список элементов, которые добавлены с этим приоритетом
+    private _Array<OList<T>> _priorArr;
 
 
-    @SuppressWarnings("unchecked")
     public PQueueImpl() {
-        this._queue = (OList<T>[])new OList[0];
+        this._priorArr = new DArray<>();
     }
 
 
     @Override
     public void enqueue(int priority, T item) {
-        // найти список с таким приоритетом, если такого нет - создать
-        guaranteeElement(priority);
-        OList<T> priorityQueue = _queue[priority];
-        if(priorityQueue == null){
-            priorityQueue = new OList<>();
-        }
-        priorityQueue.add(item);
+        OList<T> priorityQueue = guaranteeObtainElement(priority);
+        priorityQueue.add(item); // т.к. FIFO - добавляем в хвост, забирать будем head
     }
 
-    @SuppressWarnings("unchecked")
-    private void guaranteeElement(int priority){
-        if(_queue.length < priority){
-            // создаем и заполняем новый _queue
-            OList<T>[] newQueue = (OList<T>[])new OList[priority + 1];
+    /** Найти список с таким приоритетом, если такого нет - создать */
+    private OList<T> guaranteeObtainElement(int priority){
+        if(_priorArr.size() < priority + 1){
+            OList<T> result = new OList<>();
+            _priorArr.add(priority, result);
+            return result;
+        } else {
+            OList<T> result = _priorArr.get(priority);
+            if(result == null){
+                result = new OList<>();
+                _priorArr.set(priority, result);
+            }
+            return result;
         }
     }
 
     @Override
     public T dequeue() {
         // найти список с max приоритетом
+        for(int i = _priorArr.size(); i >=0; i--){
+            _List<T> elem = _priorArr.get(i);
+            if(elem != null){
+                _List._ListItem<T> head = elem.head();
+                if(head != null){
+                    T result = head.get();
+                    elem.removeHead();
+                    return result;
+                }
+            }
+        }
 
         // взять хвост
 

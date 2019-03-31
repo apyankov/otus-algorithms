@@ -41,7 +41,7 @@ class PQueueTest {
     }
 
     @Test
-    @DisplayName("в пределах одного приоритета - элементы возвращаем FILO")
+    @DisplayName("в пределах одного приоритета - элементы возвращаем FIFO")
     void samePriorityTest() {
         queue.enqueue(10, SAMPLE_VALUE_1);
         queue.enqueue(10, SAMPLE_VALUE_2);

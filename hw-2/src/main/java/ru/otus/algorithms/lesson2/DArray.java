@@ -2,7 +2,7 @@ package ru.otus.algorithms.lesson2;
 
 /*********************************************************
  _Array impl, в которой:
-    - используем один массив, который при расширении - заменяем на массив большего размера
+ - используем один массив, который при расширении - заменяем на массив большего размера
 
  Пример использования:
 
@@ -31,9 +31,7 @@ class DArray<T> implements _Array<T> {
         assert initialSize >= 0;
         assert growBlockSize > 0;
 
-        if (initialSize > 0) {
-            this._arr = (T[]) new Object[initialSize];
-        }
+        this._arr = (T[]) new Object[initialSize];
         this.growBlockSize = growBlockSize;
     }
 

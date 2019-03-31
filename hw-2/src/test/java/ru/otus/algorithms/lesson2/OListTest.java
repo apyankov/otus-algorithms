@@ -11,14 +11,14 @@ class OListTest {
 
     @Test
     @DisplayName("OList, добавленные элементы - доступны для считывания")
-    void basicTest(){
-        OList<Integer> list = new OList<Integer>();
+    void basicTest() {
+        OList<Integer> list = new OList<>();
         list.add(VALUE_1);
         list.add(VALUE_2);
 
-        OList<Integer>.ListItem<Integer> element1 = list.head();
-        OList<Integer>.ListItem<Integer> element2 = element1.getNext();
-        OList<Integer>.ListItem<Integer> element3 = element2.getNext();
+        _List._ListItem<Integer> element1 = list.head();
+        _List._ListItem<Integer> element2 = element1.getNext();
+        _List._ListItem<Integer> element3 = element2.getNext();
 
         Assertions.assertEquals(VALUE_1, (int) element1.get());
         Assertions.assertEquals(VALUE_2, (int) element2.get());
