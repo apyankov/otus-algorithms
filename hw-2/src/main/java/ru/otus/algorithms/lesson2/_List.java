@@ -32,6 +32,7 @@ public interface _List<T> {
 
     /**
      * Удалить первый элемент в списке
+     * @throws IllegalStateException - если список пустой
      */
     void removeHead();
 
@@ -39,4 +40,9 @@ public interface _List<T> {
      * Добавить элемент в конец списка
      */
     void add(T item);
+
+    /**
+     * Если список путой - вернет true
+     */
+    boolean isEmpty();
 }

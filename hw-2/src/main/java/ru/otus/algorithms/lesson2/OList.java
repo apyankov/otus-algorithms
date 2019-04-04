@@ -53,7 +53,10 @@ public class OList<T> implements _List<T>{
 
     @Override
     public void removeHead() {
-
+        if(_head == null){
+            throw new IllegalStateException("the list is empty, while attempt to remove head");
+        }
+        _head = _head.getNext();
     }
 
     public void add(T item) {
@@ -66,5 +69,10 @@ public class OList<T> implements _List<T>{
             _tail.setNext(li);
             _tail = li;
         }
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return _head == null;
     }
 }

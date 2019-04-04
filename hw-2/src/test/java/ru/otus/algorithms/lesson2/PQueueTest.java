@@ -27,16 +27,18 @@ class PQueueTest {
     @Test
     @DisplayName("dequeue возвращает null, когда пусто")
     void dequeueNullTest(){
+        // если dequeue - это первый вызов
         String value1 = queue.dequeue();
-        Assertions.assertNotNull(value1);
+        Assertions.assertNull(value1);
 
+        // при уменьшении очереди
         queue.enqueue(1, SAMPLE_VALUE_1);
+        queue.dequeue();
         String value2 = queue.dequeue();
-        String value3 = queue.dequeue();
-        String value4 = queue.dequeue();
+        Assertions.assertNull(value2);
 
-        Assertions.assertNotNull(value2);
-        Assertions.assertNull(value3);
+        // при повторных dequeue на пустой очереди
+        String value4 = queue.dequeue();
         Assertions.assertNull(value4);
     }
 
@@ -50,9 +52,9 @@ class PQueueTest {
         String restored2 = queue.dequeue();
         String restored3 = queue.dequeue();
 
-        Assertions.assertEquals(SAMPLE_VALUE_3, restored1);
+        Assertions.assertEquals(SAMPLE_VALUE_1, restored1);
         Assertions.assertEquals(SAMPLE_VALUE_2, restored2);
-        Assertions.assertEquals(SAMPLE_VALUE_1, restored3);
+        Assertions.assertEquals(SAMPLE_VALUE_3, restored3);
     }
 
     @Test

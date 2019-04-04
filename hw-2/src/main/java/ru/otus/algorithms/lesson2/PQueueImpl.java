@@ -21,15 +21,17 @@ public class PQueueImpl<T> implements PQueue<T> {
         priorityQueue.add(item); // т.к. FIFO - добавляем в хвост, забирать будем head
     }
 
-    /** Найти список с таким приоритетом, если такого нет - создать */
-    private OList<T> guaranteeObtainElement(int priority){
-        if(_priorArr.size() < priority + 1){
+    /**
+     * Найти список с таким приоритетом, если такого нет - создать
+     */
+    private OList<T> guaranteeObtainElement(int priority) {
+        if (_priorArr.size() < priority + 1) {
             OList<T> result = new OList<>();
             _priorArr.add(priority, result);
             return result;
         } else {
             OList<T> result = _priorArr.get(priority);
-            if(result == null){
+            if (result == null) {
                 result = new OList<>();
                 _priorArr.set(priority, result);
             }
@@ -39,21 +41,16 @@ public class PQueueImpl<T> implements PQueue<T> {
 
     @Override
     public T dequeue() {
-        // найти список с max приоритетом
-        for(int i = _priorArr.size(); i >=0; i--){
+        // найти не-пустой список с max приоритетом
+        for (int i = _priorArr.size() - 1; i >= 0; i--) {
             _List<T> elem = _priorArr.get(i);
-            if(elem != null){
+            if (elem != null && !elem.isEmpty()) { // список есть и не-пустой
                 _List._ListItem<T> head = elem.head();
-                if(head != null){
-                    T result = head.get();
-                    elem.removeHead();
-                    return result;
-                }
+                T result = head.get();
+                elem.removeHead();
+                return result;
             }
         }
-
-        // взять хвост
-
         return null;
     }
 }
