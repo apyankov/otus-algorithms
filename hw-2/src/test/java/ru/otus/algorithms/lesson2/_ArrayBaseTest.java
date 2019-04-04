@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Supplier;
 
-class _ArrayTest {
+class _ArrayBaseTest {
 
     private static final String SAMPLE_STRING = "hello";
 
     private Supplier<_Array<String>> arraySupplier;
 
 
-    _ArrayTest(Supplier<_Array<String>> arraySupplier) {
+    _ArrayBaseTest(Supplier<_Array<String>> arraySupplier) {
         this.arraySupplier = arraySupplier;
     }
 

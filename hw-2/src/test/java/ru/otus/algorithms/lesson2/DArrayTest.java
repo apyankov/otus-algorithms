@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class DArrayTest extends _ArrayTest{
+class DArrayTest extends _ArrayBaseTest {
 
     private static final String SAMPLE_STRING = "hello";
 
