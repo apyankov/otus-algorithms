@@ -35,6 +35,8 @@ class _ArrayBaseTest {
         int index = 5;
         arr.add(index, SAMPLE_STRING);
 
-        Assertions.assertEquals(index + 1, arr.size()); // т.к. индекс отсчитывается от 0, то size = +1
+        // проверка именно >=, т.к. impl может выделять элементы пачкой
+        // т.к. индекс отсчитывается от 0, то size это index + 1
+        Assertions.assertTrue(arr.size() >= index + 1);
     }
 }
