@@ -20,6 +20,7 @@ class DArray<T> implements _Array<T> {
 
     private T[] _arr;
     private int growBlockSize;
+    private int size;
 
 
     DArray() {
@@ -27,12 +28,13 @@ class DArray<T> implements _Array<T> {
     }
 
     @SuppressWarnings("unchecked")
-    DArray(int initialSize, int growBlockSize) {
-        assert initialSize >= 0;
+    DArray(int initialCapacity, int growBlockSize) {
+        assert initialCapacity >= 0;
         assert growBlockSize > 0;
 
-        this._arr = (T[]) new Object[initialSize];
+        this._arr = (T[]) new Object[initialCapacity];
         this.growBlockSize = growBlockSize;
+        this.size = 0;
     }
 
 
@@ -43,17 +45,42 @@ class DArray<T> implements _Array<T> {
     public void add(int index, T element) {
         if (_arr == null || _arr.length <= index)
             relocate(index + growBlockSize, index);
-        _arr[index] = element;
+        set(index, element);
+    }
+
+    @Override
+    public void add(T element) {
+        add(size, element);
     }
 
     public void set(int index, T element) {
         _arr[index] = element;
+        if (index >= size) {
+            size = index + 1;
+        }
     }
 
-    public int size() {
+    @Override
+    public void remove(int index) {
+        if (index >= size) {
+            throw new ArrayIndexOutOfBoundsException(String.format("attempt to remove at %s, while size=%s", index, size));
+        }
+        _arr[index] = null;
+
+        // учитываем изменения для size
+        if (index == size - 1) {
+            size = size - 1;
+        }
+    }
+
+    public int capacity() {
         return _arr.length;
     }
 
+    @Override
+    public int size() {
+        return size;
+    }
 
     @SuppressWarnings("unchecked")
     private void relocate(int newsize, int index) {

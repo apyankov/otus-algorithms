@@ -14,14 +14,13 @@ class DArrayTest extends _ArrayBaseTest {
     }
 
 
-
     @Test
-    @DisplayName("для block-size >0 size тоже работает")
-    void sizeForBlockTest(){
+    @DisplayName("для block-capacity >0 capacity тоже работает")
+    void capacityForBlockTest() {
         DArray<String> arr = new DArray<String>(2, 5);
         int index = 6;
         arr.add(index, SAMPLE_STRING);
 
-        Assertions.assertTrue(arr.size() >= index + 1); // т.к. индекс отсчитывается от 0, то size = +1, и, увеличена с учетом размера блока
+        Assertions.assertTrue(arr.capacity() >= index + 1); // т.к. индекс отсчитывается от 0, то capacity = +1, и, увеличена с учетом размера блока
     }
 }

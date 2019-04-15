@@ -13,7 +13,7 @@ public class BArray<T> implements _Array<T> {
 
 
     /**
-     * @param initialSize - начальный размер массива. То есть, size >= этого значения
+     * @param initialSize - начальный размер массива. То есть, capacity >= этого значения
      * @param blockSize   - размер блоков. То есть, с каким шагом будет расширяться массив
      */
     @SuppressWarnings("unchecked")
@@ -28,8 +28,8 @@ public class BArray<T> implements _Array<T> {
 
 
     public T get(int index) {
-        if (index < 0 || index > size() - 1) {
-            throw new IndexOutOfBoundsException(String.format("index specified: %s, while should be in range: 0 - %s", index, size() - 1));
+        if (index < 0 || index > capacity() - 1) {
+            throw new IndexOutOfBoundsException(String.format("index specified: %s, while should be in range: 0 - %s", index, capacity() - 1));
         }
         int row = rowOf(index);
         int column = columnOf(index);
@@ -41,12 +41,27 @@ public class BArray<T> implements _Array<T> {
         set(index, element);
     }
 
+    @Override
+    public void add(T element) {
+
+    }
+
     public void set(int index, T element) {
         _arr[rowOf(index)][columnOf(index)] = element;
     }
 
-    public int size() {
+    @Override
+    public void remove(int index) {
+
+    }
+
+    public int capacity() {
         return _arr.length * blockSize;
+    }
+
+    @Override
+    public int size() {
+        return 0;
     }
 
     /**

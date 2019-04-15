@@ -25,7 +25,7 @@ public class PQueueImpl<T> implements PQueue<T> {
      * Найти список с таким приоритетом, если такого нет - создать
      */
     private OList<T> guaranteeObtainElement(int priority) {
-        if (_priorArr.size() < priority + 1) {
+        if (_priorArr.capacity() < priority + 1) {
             OList<T> result = new OList<>();
             _priorArr.add(priority, result);
             return result;
@@ -42,7 +42,7 @@ public class PQueueImpl<T> implements PQueue<T> {
     @Override
     public T dequeue() {
         // найти не-пустой список с max приоритетом
-        for (int i = _priorArr.size() - 1; i >= 0; i--) {
+        for (int i = _priorArr.capacity() - 1; i >= 0; i--) {
             _List<T> elem = _priorArr.get(i);
             if (elem != null && !elem.isEmpty()) { // список есть и не-пустой
                 _List._ListItem<T> head = elem.head();
